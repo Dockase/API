@@ -62,7 +62,7 @@ const plans = [
 
 export default function PricingPage() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-20">
+    <div className="mx-auto max-w-7xl px-6 py-20">
       <div>
         <p className="font-mono text-xs uppercase tracking-widest text-muted">
           Pricing
@@ -124,7 +124,7 @@ export default function PricingPage() {
         ))}
       </div>
 
-      <div className="mx-auto mt-16 max-w-3xl space-y-6 rounded-2xl border border-border bg-bg-raised/60 p-8 text-sm leading-relaxed text-muted">
+      <div className="mt-16 max-w-3xl space-y-6 rounded-2xl border border-border bg-bg-raised/60 p-8 text-sm leading-relaxed text-muted">
         <h2 className="text-lg font-semibold text-heading">Notes on billing</h2>
         <p>
           Plans are billed monthly in USD through Paystack. Your call allowance

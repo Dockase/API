@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid gap-10 md:grid-cols-4">
           <div>
             <div className="flex items-center gap-2.5">
@@ -11,8 +11,9 @@ export default function Footer() {
               <span className="text-lg font-semibold text-heading">Dockase</span>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              The Nigerian legal corpus, as an API. Judgments, citations,
-              statutes, and legal embeddings from the AELR corpus.
+              Legal data and legal AI, as an API. The AELR Nigerian case-law
+              corpus, plus legal embeddings and verification primitives anyone
+              can build on.
             </p>
           </div>
 

@@ -28,15 +28,15 @@ const entries = [
 
 export default function ChangelogPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20">
-      <h1 className="text-3xl font-semibold text-heading sm:text-4xl">
+    <div className="mx-auto max-w-7xl px-6 py-20">
+      <h1 className="max-w-3xl text-3xl font-semibold text-heading sm:text-4xl">
         Changelog
       </h1>
       <p className="mt-3 text-muted">
         New endpoints, improvements, and breaking changes.
       </p>
 
-      <div className="mt-12 space-y-10">
+      <div className="mt-12 max-w-3xl space-y-10">
         {entries.map((e) => (
           <article
             key={e.title}

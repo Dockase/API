@@ -3,6 +3,7 @@ import CodeBlock from "@/components/CodeBlock";
 import CodeTabs from "@/components/CodeTabs";
 import FieldTable, { type Field } from "@/components/FieldTable";
 import MethodBadge from "@/components/MethodBadge";
+import ScopeBadge from "@/components/ScopeBadge";
 
 export const metadata: Metadata = {
   title: "Documentation",
@@ -39,16 +40,19 @@ function EndpointHeading({
   method,
   path,
   title,
+  scope,
 }: {
   method: "GET" | "POST";
   path: string;
   title: string;
+  scope: "Nigeria" | "Global";
 }) {
   return (
     <>
       <div className="flex flex-wrap items-center gap-3">
         <MethodBadge method={method} />
         <code className="font-mono text-sm text-accent-hover">{path}</code>
+        <ScopeBadge scope={scope} />
       </div>
       <h2 className="mt-3 text-2xl font-semibold text-heading">{title}</h2>
     </>
@@ -548,7 +552,7 @@ const citationEdgeFields: Field[] = [
 
 export default function DocsPage() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-14 lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
+    <div className="mx-auto max-w-7xl px-6 py-14 lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
       {/* Sidebar */}
       <aside className="hidden lg:block">
         <nav className="sticky top-24">
@@ -723,6 +727,7 @@ export default function DocsPage() {
             method="POST"
             path="/v1/judgments/search"
             title="Search judgments"
+            scope="Nigeria"
           />
           <p className="mt-4 leading-relaxed text-muted">
             Semantic search over 13,000+ Nigerian judgments. Send a
@@ -761,6 +766,7 @@ export default function DocsPage() {
             method="GET"
             path="/v1/judgments/{id}"
             title="Get a judgment"
+            scope="Nigeria"
           />
           <p className="mt-4 leading-relaxed text-muted">
             Fetch a single judgment by ID. Same shape as a search result, with
@@ -794,6 +800,7 @@ export default function DocsPage() {
             method="GET"
             path="/v1/judgments/{id}/citations"
             title="Citation graph"
+            scope="Nigeria"
           />
           <p className="mt-4 leading-relaxed text-muted">
             The citation neighbourhood of a judgment: everything it cites, and
@@ -836,6 +843,7 @@ export default function DocsPage() {
             method="POST"
             path="/v1/citations/verify"
             title="Verify a citation"
+            scope="Nigeria"
           />
           <p className="mt-4 leading-relaxed text-muted">
             Check whether a citation or case name exists in the record. Built
@@ -891,6 +899,7 @@ export default function DocsPage() {
             method="GET"
             path="/v1/statutes"
             title="List statutes"
+            scope="Nigeria"
           />
           <p className="mt-4 leading-relaxed text-muted">
             Nigerian statutes as structured records. Filter by{" "}
@@ -926,6 +935,7 @@ export default function DocsPage() {
             method="GET"
             path="/v1/statutes/{id}"
             title="Get a statute"
+            scope="Nigeria"
           />
           <p className="mt-4 leading-relaxed text-muted">
             The full statute, formatted as clean markdown — headings, sections,
@@ -950,15 +960,17 @@ export default function DocsPage() {
             method="POST"
             path="/v1/embeddings"
             title="Embeddings"
+            scope="Global"
           />
           <p className="mt-4 leading-relaxed text-muted">
             <code className="font-mono text-[13px] text-accent-hover">
               amicus-embed-ng-v1
             </code>{" "}
-            is an embedding model trained on Nigerian legal text — judgments,
-            statutes, and legal commentary. Use it to build your own retrieval
-            over firm documents, briefs, or knowledge bases. The request shape
-            is OpenAI-compatible.
+            is a legal-domain embedding model, trained on judgments, statutes,
+            and legal commentary. It is a global primitive — use it to build
+            retrieval over your own documents, contracts, briefs, or knowledge
+            bases, in any jurisdiction. The request shape is
+            OpenAI-compatible.
           </p>
           <div className="mt-6">
             <CodeTabs tabs={embeddingsTabs} />

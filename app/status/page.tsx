@@ -7,12 +7,12 @@ export const metadata: Metadata = {
 
 export default function StatusPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20">
+    <div className="mx-auto max-w-7xl px-6 py-20">
       <h1 className="text-3xl font-semibold text-heading sm:text-4xl">
         API status
       </h1>
 
-      <div className="mt-10 rounded-2xl border border-border bg-bg-raised/60 p-8">
+      <div className="mt-10 max-w-3xl rounded-2xl border border-border bg-bg-raised/60 p-8">
         <div className="flex items-center gap-3">
           <span className="relative flex h-3 w-3">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
@@ -37,7 +37,7 @@ export default function StatusPage() {
         </p>
       </div>
 
-      <div className="mt-6 rounded-2xl border border-border bg-bg-raised/60 p-8">
+      <div className="mt-6 max-w-3xl rounded-2xl border border-border bg-bg-raised/60 p-8">
         <h2 className="text-lg font-semibold text-heading">Need help?</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted">
           For incidents, billing, or integration questions, email{" "}

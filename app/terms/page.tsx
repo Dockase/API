@@ -30,18 +30,18 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20">
-      <h1 className="text-3xl font-semibold text-heading sm:text-4xl">
+    <div className="mx-auto max-w-7xl px-6 py-20">
+      <h1 className="max-w-3xl text-3xl font-semibold text-heading sm:text-4xl">
         API terms of use
       </h1>
-      <p className="mt-4 leading-relaxed text-muted">
+      <p className="mt-4 max-w-3xl leading-relaxed text-muted">
         This is the plain-language summary of the terms that govern use of the
         Dockase API. It is short because the rules are simple: use the API to
         build things for your users, don&apos;t use it to rebuild the corpus.
         By creating an API key you agree to these terms.
       </p>
 
-      <div className="mt-12 space-y-6">
+      <div className="mt-12 max-w-3xl space-y-6">
         {sections.map((s, i) => (
           <section
             key={s.title}

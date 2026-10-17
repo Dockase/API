@@ -19,11 +19,11 @@ const jbMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://developers.dockase.com"),
   title: {
-    default: "Dockase API — The Nigerian legal corpus, as an API",
+    default: "Dockase API — Legal data and legal AI, as an API",
     template: "%s — Dockase API",
   },
   description:
-    "Search 13,000+ Nigerian judgments from the AELR corpus, traverse a citation graph, verify citations, and embed legal text — over one REST API.",
+    "The AELR Nigerian case-law corpus — 13,000+ judgments with a citation graph — plus global legal AI primitives: domain-trained embeddings and citation verification, over one REST API.",
 };
 
 export default function RootLayout({
