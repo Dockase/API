@@ -24,7 +24,7 @@ export default function Footer() {
               <li><a href="/status" className="text-muted hover:text-heading">Status</a></li>
               <li>
                 <a
-                  href="https://app.dockase.com/billing/developer"
+                  href="https://dockase.com/billing/developer/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted hover:text-heading"

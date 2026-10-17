@@ -63,11 +63,14 @@ const plans = [
 export default function PricingPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
-      <div className="text-center">
-        <h1 className="text-3xl font-semibold text-heading sm:text-5xl">
+      <div>
+        <p className="font-mono text-xs uppercase tracking-widest text-muted">
+          Pricing
+        </p>
+        <h1 className="mt-3 max-w-xl text-3xl font-semibold text-heading sm:text-4xl">
           Pricing that scales with your docket
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-muted">
+        <p className="mt-4 max-w-xl text-muted">
           Every plan includes every endpoint. Higher tiers raise the volume,
           the rate limit, and unlock full judgment text. Billed in USD via
           Paystack.
@@ -80,7 +83,7 @@ export default function PricingPage() {
             key={p.name}
             className={`relative flex flex-col rounded-2xl border p-8 ${
               p.highlighted
-                ? "border-accent/60 bg-bg-raised shadow-[0_0_40px_rgba(93,139,240,0.15)]"
+                ? "border-accent/50 bg-bg-raised shadow-[0_8px_40px_rgba(35,104,234,0.12)]"
                 : "border-border bg-bg-raised/60"
             }`}
           >
@@ -106,12 +109,12 @@ export default function PricingPage() {
               ))}
             </ul>
             <a
-              href="https://app.dockase.com/billing/developer"
+              href="https://dockase.com/billing/developer/"
               target="_blank"
               rel="noopener noreferrer"
               className={`mt-8 rounded-xl px-4 py-3 text-center text-sm font-semibold transition-colors ${
                 p.highlighted
-                  ? "bg-accent text-bg hover:bg-accent-hover"
+                  ? "bg-accent text-accent-ink hover:bg-accent-hover"
                   : "border border-border text-heading hover:border-border-strong"
               }`}
             >
@@ -134,16 +137,17 @@ export default function PricingPage() {
           <span className="text-heading">$0.20 per 1M tokens on Enterprise</span>.
         </p>
         <p>
-          Manage keys, plans, and invoices from the developer dashboard at{" "}
+          API keys, usage metrics, plans, and invoices all live in the Dockase
+          dashboard at{" "}
           <a
-            href="https://app.dockase.com/billing/developer"
+            href="https://dockase.com/billing/developer/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent hover:text-accent-hover"
           >
-            app.dockase.com/billing/developer
-          </a>
-          .
+            dockase.com/billing/developer
+          </a>{" "}
+          — this portal is documentation only; the dashboard is your account.
         </p>
       </div>
     </div>

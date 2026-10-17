@@ -19,7 +19,7 @@ export default function Nav() {
     <header className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-soft text-sm font-bold text-accent">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-sm font-bold text-accent-ink">
             D
           </span>
           <span className="text-lg font-semibold text-heading">Dockase</span>
@@ -46,10 +46,10 @@ export default function Nav() {
             );
           })}
           <a
-            href="https://app.dockase.com/billing/developer"
+            href="https://dockase.com/billing/developer/"
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-3 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-bg transition-colors hover:bg-accent-hover"
+            className="ml-3 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-hover"
           >
             Get API key
           </a>
@@ -72,7 +72,7 @@ export default function Nav() {
       </div>
 
       {open && (
-        <nav className="border-t border-border px-6 py-4 md:hidden">
+        <nav className="border-t border-border bg-bg px-6 py-4 md:hidden">
           <div className="flex flex-col gap-1">
             {links.map((l) => (
               <Link
@@ -85,10 +85,10 @@ export default function Nav() {
               </Link>
             ))}
             <a
-              href="https://app.dockase.com/billing/developer"
+              href="https://dockase.com/billing/developer/"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-bg"
+              className="mt-2 rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-ink"
             >
               Get API key
             </a>

@@ -590,14 +590,16 @@ export default function DocsPage() {
             <code className="font-mono text-[13px] text-accent-hover">/v1</code>.
             Grab an API key from the{" "}
             <a
-              href="https://app.dockase.com/billing/developer"
+              href="https://dockase.com/billing/developer/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent hover:text-accent-hover"
             >
-              developer dashboard
+              Dockase dashboard
             </a>{" "}
-            and you can make your first call in under a minute.
+            and you can make your first call in under a minute. Keys, usage,
+            and billing all live in the dashboard — this portal is just the
+            documentation.
           </p>
 
           <Sub>Authentication</Sub>
@@ -610,12 +612,12 @@ export default function DocsPage() {
             <code className="font-mono text-[13px] text-accent-hover">dk_</code>{" "}
             and are created and revoked at{" "}
             <a
-              href="https://app.dockase.com/billing/developer"
+              href="https://dockase.com/billing/developer/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent hover:text-accent-hover"
             >
-              app.dockase.com/billing/developer
+              dockase.com/billing/developer
             </a>
             . Keep keys server-side — never ship them in a browser or mobile
             client.

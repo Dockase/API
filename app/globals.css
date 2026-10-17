@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
-/* Dockase developer portal — dark-first deep navy theme.
-   Tokens mirror dockase/frontend/app/globals.css (html.dark values). */
+/* Dockase developer portal — dockase.com marketing palette (light, warm cream).
+   Tokens mirror brand/tokens.css :root (source of truth). */
 :root {
-  --bg: #0c1533;
-  --bg-raised: #131f47;
-  --heading: #ffffff;
-  --text: #e8edff;
-  --text-muted: #9aa7d0;
-  --accent: #5d8bf0;
-  --accent-hover: #7fa3f5;
-  --accent-soft: rgba(93, 139, 240, 0.16);
-  --gold: #e5b75a;
-  --border: rgba(232, 237, 255, 0.1);
-  --border-strong: rgba(232, 237, 255, 0.18);
-  --fill-subtle: rgba(232, 237, 255, 0.05);
-  --gold-soft: rgba(229, 183, 90, 0.14);
-  --code-bg: #080f26;
-  --accent-glow: rgba(93, 139, 240, 0.3);
+  --bg: #fff6ec;
+  --bg-raised: #ffffff;
+  --heading: #0e2a6b;
+  --text: #1a2456;
+  --text-muted: #6b7194;
+  --accent: #2368ea;
+  --accent-hover: #1b52c7;
+  --accent-ink: #ffffff;
+  --accent-soft: #dce7ff;
+  --gold: #b8892e;
+  --gold-bright: #e5b75a;
+  --border: rgba(14, 42, 107, 0.12);
+  --border-strong: rgba(14, 42, 107, 0.22);
+  --fill-subtle: rgba(14, 42, 107, 0.04);
+  --gold-soft: rgba(184, 137, 46, 0.12);
 
-  color-scheme: dark;
+  /* Code panels stay deep navy — the one approved dark surface */
+  --code-bg: #0c1533;
+  --code-text: #e8edff;
+  --code-muted: #9aa7d0;
+  --code-border: rgba(232, 237, 255, 0.1);
+
+  color-scheme: light;
 }
 
 @theme inline {
@@ -30,13 +36,18 @@
   --color-muted: var(--text-muted);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
   --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
   --color-gold-soft: var(--gold-soft);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-fill-subtle: var(--fill-subtle);
   --color-code-bg: var(--code-bg);
+  --color-code-text: var(--code-text);
+  --color-code-muted: var(--code-muted);
+  --color-code-border: var(--code-border);
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jb-mono), ui-monospace, SFMono-Regular, Menlo,
     monospace;
@@ -50,15 +61,15 @@ body {
   background:
     radial-gradient(
       ellipse 80% 50% at 50% -10%,
-      rgba(93, 139, 240, 0.1),
+      rgba(35, 104, 234, 0.07),
       transparent
     ),
     radial-gradient(
       ellipse 80% 60% at 50% 120%,
-      rgba(35, 104, 234, 0.08),
+      rgba(229, 183, 90, 0.12),
       transparent
     ),
-    linear-gradient(180deg, #0c1533 0%, #080f26 100%);
+    linear-gradient(180deg, #fff6ec 0%, #fbf1e2 100%);
   background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
@@ -66,13 +77,13 @@ body {
 
 *:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--accent-glow);
+  box-shadow: 0 0 0 2px rgba(35, 104, 234, 0.25);
 }
 
 /* Thin scrollbars */
 body {
   scrollbar-width: thin;
-  scrollbar-color: rgba(232, 237, 255, 0.2) transparent;
+  scrollbar-color: rgba(14, 42, 107, 0.25) transparent;
 }
 body::-webkit-scrollbar {
   width: 6px;
@@ -82,11 +93,11 @@ body::-webkit-scrollbar-track {
   background: transparent;
 }
 body::-webkit-scrollbar-thumb {
-  background: rgba(232, 237, 255, 0.2);
+  background: rgba(14, 42, 107, 0.25);
   border-radius: 999px;
 }
 body::-webkit-scrollbar-thumb:hover {
-  background: rgba(232, 237, 255, 0.35);
+  background: rgba(14, 42, 107, 0.4);
 }
 
 @media (prefers-reduced-motion: reduce) {
