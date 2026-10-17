@@ -20,7 +20,6 @@ const plans = [
       "Judgment search with snippets (~300 chars)",
       "Citation graph & citation verification",
       "Statutes in clean markdown",
-      "amicus-embed-ng-v1 embeddings",
       "Community support",
     ],
     cta: "Start for free",
@@ -38,6 +37,7 @@ const plans = [
       "Full judgment text (no snippets)",
       "Citation graph & citation verification",
       "Statutes in clean markdown",
+      "amicus-embed-ng-v1 embeddings",
       "Embeddings overage: $0.25 / 1M tokens",
       "Email support",
     ],
@@ -56,6 +56,7 @@ const plans = [
       "Full judgment text (no snippets)",
       "Citation graph & citation verification",
       "Statutes in clean markdown",
+      "amicus-embed-ng-v1 embeddings",
       "Embeddings overage: $0.20 / 1M tokens",
       "Priority support",
     ],
@@ -75,9 +76,10 @@ export default function PricingPage() {
           Pricing that scales with your docket
         </h1>
         <p className="mt-4 max-w-xl text-muted">
-          Every plan includes every endpoint. Higher tiers raise the volume,
-          the rate limit, and unlock full judgment text. Billed in USD via
-          Paystack.
+          Every plan includes the case-law corpus, citation graph, citation
+          verification, and statutes. Embeddings are available on Pro and
+          Enterprise. Higher tiers raise the volume, the rate limit, and unlock
+          full judgment text. Billed in USD via Paystack.
         </p>
       </div>
 
@@ -133,8 +135,9 @@ export default function PricingPage() {
           resets on the first of each month; unused calls do not roll over.
         </p>
         <p>
-          Embeddings are token-metered. Embedding usage draws on your monthly
-          allowance first, then bills as overage —{" "}
+          Embeddings are token-metered and available on Pro and Enterprise
+          only. Embedding usage draws on your monthly allowance first, then
+          bills as overage —{" "}
           <span className="text-heading">$0.25 per 1M tokens on Pro</span>,{" "}
           <span className="text-heading">$0.20 per 1M tokens on Enterprise</span>.
         </p>

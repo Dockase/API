@@ -42,11 +42,13 @@ function EndpointHeading({
   path,
   title,
   scope,
+  planGate,
 }: {
   method: "GET" | "POST";
   path: string;
   title: string;
   scope: "Nigeria" | "Global";
+  planGate?: string;
 }) {
   return (
     <>
@@ -54,6 +56,11 @@ function EndpointHeading({
         <MethodBadge method={method} />
         <code className="font-mono text-sm text-accent-hover">{path}</code>
         <ScopeBadge scope={scope} />
+        {planGate && (
+          <span className="inline-flex items-center rounded-full border border-gold/40 bg-gold-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-gold">
+            {planGate}
+          </span>
+        )}
       </div>
       <h2 className="mt-3 text-2xl font-semibold text-heading">{title}</h2>
     </>
@@ -960,6 +967,7 @@ export default function DocsPage() {
             path="/v1/embeddings"
             title="Embeddings"
             scope="Global"
+            planGate="Pro & Enterprise only"
           />
           <p className="mt-4 leading-relaxed text-muted">
             <code className="font-mono text-[13px] text-accent-hover">
@@ -997,9 +1005,18 @@ export default function DocsPage() {
             <CodeBlock code={embeddingsResponse} lang="json" title="200 OK" />
           </div>
           <TierNote>
-            Embeddings are token-metered. Included usage comes from your plan's
-            monthly call allowance; overage is billed per million tokens —
-            $0.25/1M on PRO, $0.20/1M on ENTERPRISE.
+            PRO and ENTERPRISE only. FREE keys get{" "}
+            <code className="font-mono text-[13px]">402 payment_required</code>{" "}
+            — the error body points you to{" "}
+            <Link
+              href="/dashboard"
+              className="text-accent hover:text-accent-hover"
+            >
+              /dashboard
+            </Link>{" "}
+            to upgrade. Embeddings are token-metered: included usage comes from
+            your plan&apos;s monthly call allowance; overage is billed per
+            million tokens — $0.25/1M on PRO, $0.20/1M on ENTERPRISE.
           </TierNote>
         </Section>
       </div>

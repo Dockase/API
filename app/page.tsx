@@ -3,6 +3,7 @@ import Link from "next/link";
 import CodeBlock from "@/components/CodeBlock";
 import MethodBadge from "@/components/MethodBadge";
 import ScopeBadge from "@/components/ScopeBadge";
+import Typewriter from "@/components/Typewriter";
 
 export const metadata: Metadata = {
   title: "Dockase API — Legal data and legal AI, as an API",
@@ -84,14 +85,15 @@ export default function Home() {
           </p>
           <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight tracking-tight text-heading sm:text-5xl">
             The legal data bank.{" "}
-            <span className="text-accent">Build your AI on it.</span>
+            <span className="text-accent">
+              <Typewriter />
+            </span>
           </h1>
           <p className="mt-4 max-w-xl leading-relaxed text-muted">
-            Two lanes, one REST API. The AELR Nigerian case-law corpus —
-            13,000+ judgments with a full citation graph — and global legal AI
-            primitives anyone can build on: domain-trained embeddings and
-            citation verification, with specialized contract models coming
-            soon.
+            One REST API for legal data and legal AI. Query 13,000+ verified
+            judgments with a full citation graph. Verify any citation against
+            the real record. Embed any legal text with domain-trained models.
+            Bank the data — build your AI on it.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
