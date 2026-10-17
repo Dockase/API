@@ -23,16 +23,8 @@ export default function Footer() {
               <li><a href="/docs" className="text-muted hover:text-heading">Documentation</a></li>
               <li><a href="/changelog" className="text-muted hover:text-heading">Changelog</a></li>
               <li><a href="/status" className="text-muted hover:text-heading">Status</a></li>
-              <li>
-                <a
-                  href="https://dockase.com/billing/developer/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted hover:text-heading"
-                >
-                  Get an API key
-                </a>
-              </li>
+              <li><a href="/signup" className="text-muted hover:text-heading">Get an API key</a></li>
+              <li><a href="/dashboard" className="text-muted hover:text-heading">Dashboard</a></li>
             </ul>
           </div>
 

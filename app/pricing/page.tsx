@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -23,6 +24,7 @@ const plans = [
       "Community support",
     ],
     cta: "Start for free",
+    href: "/signup",
   },
   {
     name: "Pro",
@@ -40,6 +42,7 @@ const plans = [
       "Email support",
     ],
     cta: "Upgrade to Pro",
+    href: "/dashboard",
   },
   {
     name: "Enterprise",
@@ -57,6 +60,7 @@ const plans = [
       "Priority support",
     ],
     cta: "Go Enterprise",
+    href: "/dashboard",
   },
 ];
 
@@ -108,10 +112,8 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <a
-              href="https://dockase.com/billing/developer/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={p.href}
               className={`mt-8 rounded-xl px-4 py-3 text-center text-sm font-semibold transition-colors ${
                 p.highlighted
                   ? "bg-accent text-accent-ink hover:bg-accent-hover"
@@ -119,7 +121,7 @@ export default function PricingPage() {
               }`}
             >
               {p.cta}
-            </a>
+            </Link>
           </div>
         ))}
       </div>
@@ -137,17 +139,12 @@ export default function PricingPage() {
           <span className="text-heading">$0.20 per 1M tokens on Enterprise</span>.
         </p>
         <p>
-          API keys, usage metrics, plans, and invoices all live in the Dockase
-          dashboard at{" "}
-          <a
-            href="https://dockase.com/billing/developer/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent hover:text-accent-hover"
-          >
-            dockase.com/billing/developer
-          </a>{" "}
-          — this portal is documentation only; the dashboard is your account.
+          API keys, usage metrics, plans, and invoices all live in your{" "}
+          <Link href="/dashboard" className="text-accent hover:text-accent-hover">
+            developer dashboard
+          </Link>{" "}
+          — right here on this site. Upgrades run through Paystack checkout
+          from the dashboard.
         </p>
       </div>
     </div>

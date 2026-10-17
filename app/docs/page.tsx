@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import CodeBlock from "@/components/CodeBlock";
 import CodeTabs from "@/components/CodeTabs";
 import FieldTable, { type Field } from "@/components/FieldTable";
@@ -592,18 +593,17 @@ export default function DocsPage() {
             </code>
             . It speaks JSON, versioned under{" "}
             <code className="font-mono text-[13px] text-accent-hover">/v1</code>.
-            Grab an API key from the{" "}
-            <a
-              href="https://dockase.com/billing/developer/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:text-accent-hover"
-            >
-              Dockase dashboard
-            </a>{" "}
-            and you can make your first call in under a minute. Keys, usage,
-            and billing all live in the dashboard — this portal is just the
-            documentation.
+            Create an account at{" "}
+            <Link href="/signup" className="text-accent hover:text-accent-hover">
+              /signup
+            </Link>{" "}
+            — your first API key is issued instantly — and you can make your
+            first call in under a minute. Keys, usage, and billing all live in
+            your{" "}
+            <Link href="/dashboard" className="text-accent hover:text-accent-hover">
+              developer dashboard
+            </Link>{" "}
+            right here on this site.
           </p>
 
           <Sub>Authentication</Sub>
@@ -614,15 +614,14 @@ export default function DocsPage() {
             </code>{" "}
             header. Keys are prefixed{" "}
             <code className="font-mono text-[13px] text-accent-hover">dk_</code>{" "}
-            and are created and revoked at{" "}
-            <a
-              href="https://dockase.com/billing/developer/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:text-accent-hover"
-            >
-              dockase.com/billing/developer
-            </a>
+            and are created at{" "}
+            <Link href="/signup" className="text-accent hover:text-accent-hover">
+              /signup
+            </Link>{" "}
+            and revoked or regenerated from your{" "}
+            <Link href="/dashboard" className="text-accent hover:text-accent-hover">
+              dashboard
+            </Link>
             . Keep keys server-side — never ship them in a browser or mobile
             client.
           </p>

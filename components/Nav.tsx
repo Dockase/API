@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { clearToken, getToken } from "@/lib/api";
 
 const links = [
   { href: "/docs", label: "Docs" },
@@ -14,6 +15,100 @@ const links = [
 export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  // null = not mounted yet (SSR / first paint) — render a neutral placeholder
+  // to avoid a hydration mismatch; boolean = token presence.
+  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    setLoggedIn(Boolean(getToken()));
+  }, [pathname]);
+
+  function signOut() {
+    clearToken();
+    setLoggedIn(false);
+    window.location.href = "/";
+  }
+
+  const authItems = (
+    <>
+      {loggedIn === null ? (
+        <span className="ml-3 inline-block h-9 w-24 rounded-lg bg-fill-subtle" aria-hidden />
+      ) : loggedIn ? (
+        <>
+          <Link
+            href="/dashboard"
+            className={`ml-3 rounded-lg px-3 py-2 text-sm transition-colors ${
+              pathname.startsWith("/dashboard")
+                ? "bg-accent-soft text-heading"
+                : "text-muted hover:text-heading"
+            }`}
+          >
+            Dashboard
+          </Link>
+          <button
+            onClick={signOut}
+            className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-heading"
+          >
+            Sign out
+          </button>
+        </>
+      ) : (
+        <>
+          <Link
+            href="/login"
+            className="ml-3 rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-heading"
+          >
+            Log in
+          </Link>
+          <Link
+            href="/signup"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-hover"
+          >
+            Get API key
+          </Link>
+        </>
+      )}
+    </>
+  );
+
+  const mobileAuthItems = (
+    <>
+      {loggedIn === null ? null : loggedIn ? (
+        <>
+          <Link
+            href="/dashboard"
+            onClick={() => setOpen(false)}
+            className="rounded-lg px-3 py-2 text-sm text-muted hover:bg-fill-subtle hover:text-heading"
+          >
+            Dashboard
+          </Link>
+          <button
+            onClick={signOut}
+            className="rounded-lg px-3 py-2 text-left text-sm text-muted hover:bg-fill-subtle hover:text-heading"
+          >
+            Sign out
+          </button>
+        </>
+      ) : (
+        <>
+          <Link
+            href="/login"
+            onClick={() => setOpen(false)}
+            className="rounded-lg px-3 py-2 text-sm text-muted hover:bg-fill-subtle hover:text-heading"
+          >
+            Log in
+          </Link>
+          <Link
+            href="/signup"
+            onClick={() => setOpen(false)}
+            className="mt-2 rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-ink"
+          >
+            Get API key
+          </Link>
+        </>
+      )}
+    </>
+  );
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-xl">
@@ -45,14 +140,7 @@ export default function Nav() {
               </Link>
             );
           })}
-          <a
-            href="https://dockase.com/billing/developer/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-3 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-hover"
-          >
-            Get API key
-          </a>
+          {authItems}
         </nav>
 
         <button
@@ -84,14 +172,7 @@ export default function Nav() {
                 {l.label}
               </Link>
             ))}
-            <a
-              href="https://dockase.com/billing/developer/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 rounded-lg bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-ink"
-            >
-              Get API key
-            </a>
+            {mobileAuthItems}
           </div>
         </nav>
       )}

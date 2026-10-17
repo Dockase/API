@@ -83,7 +83,8 @@ export default function Home() {
             Dockase Developer API &middot; v1
           </p>
           <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight tracking-tight text-heading sm:text-5xl">
-            Legal data and legal AI, as an API.
+            The legal data bank.{" "}
+            <span className="text-accent">Build your AI on it.</span>
           </h1>
           <p className="mt-4 max-w-xl leading-relaxed text-muted">
             Two lanes, one REST API. The AELR Nigerian case-law corpus —
@@ -93,14 +94,12 @@ export default function Home() {
             soon.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href="https://dockase.com/billing/developer/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/signup"
               className="rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-hover"
             >
               Get API key
-            </a>
+            </Link>
             <Link
               href="/docs"
               className="rounded-xl border border-border bg-bg-raised px-6 py-3 text-sm font-semibold text-heading transition-colors hover:border-border-strong"
@@ -109,16 +108,11 @@ export default function Home() {
             </Link>
           </div>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-            Already have an account? API keys, usage, and billing live in the{" "}
-            <a
-              href="https://dockase.com/billing/developer/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:text-accent-hover"
-            >
-              Dockase dashboard
-            </a>{" "}
-            — this site is just the documentation.
+            Already have an account? API keys, usage, and billing live in your{" "}
+            <Link href="/dashboard" className="text-accent hover:text-accent-hover">
+              developer dashboard
+            </Link>{" "}
+            — this site is the whole platform.
           </p>
         </div>
 
