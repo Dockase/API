@@ -90,10 +90,10 @@ export default function Home() {
             </span>
           </h1>
           <p className="mt-4 max-w-xl leading-relaxed text-muted">
-            One REST API for legal data and legal AI. Query 13,000+ verified
-            judgments with a full citation graph. Verify any citation against
-            the real record. Embed any legal text with domain-trained models.
-            Bank the data — build your AI on it.
+            The infrastructure layer for legal AI: judgments, statutes,
+            citation graphs, verification, and domain-trained embeddings
+            today — more datasets and specialized small models on the way.
+            Bank the data. Build on it.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link

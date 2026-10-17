@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s — Dockase API",
   },
   description:
-    "The legal data bank. The AELR Nigerian case-law corpus — 13,000+ judgments with a citation graph — plus global legal AI primitives: domain-trained embeddings and citation verification, over one REST API.",
+    "The legal data bank. Judgments, statutes, citation graphs, citation verification, and domain-trained legal embeddings over one REST API — with more datasets and specialized small models on the way.",
 };
 
 export default function RootLayout({
