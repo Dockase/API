@@ -10,7 +10,7 @@ export default function CodeBlock({
   title?: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-code-border bg-code-bg">
+    <div className="w-full max-w-full overflow-hidden rounded-2xl border border-code-border bg-code-bg">
       <div className="flex items-center justify-between border-b border-code-border px-4 py-2">
         <span className="font-mono text-[11px] uppercase tracking-wider text-code-muted">
           {title ?? lang}

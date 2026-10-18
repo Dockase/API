@@ -12,7 +12,7 @@ const entries = [
     title: "The Dockase developer platform is live",
     body: [
       "Public launch of API v1 at api.dockase.com: semantic judgment search over 13,000+ Nigerian judgments, judgment detail, the citation graph with treatment analysis, citation verification, statutes in clean markdown, and the amicus-embed-ng-v1 legal embedding model.",
-      "Three plans — Free ($0, 1,000 calls/mo), Pro ($29, 20,000 calls/mo), and Enterprise ($99, 100,000 calls/mo) — billed in USD via Paystack. API keys are issued instantly on signup at developers.dockase.com/signup and managed from your developer dashboard.",
+      "Three plans — Free ($0, 200 calls/mo), Pro ($29, 20,000 calls/mo), and Enterprise ($99, 100,000 calls/mo) — billed in USD via Paystack. API keys are issued instantly on signup at developers.dockase.com/signup and managed from your developer dashboard.",
     ],
   },
   {

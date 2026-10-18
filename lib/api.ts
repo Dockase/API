@@ -41,6 +41,8 @@ export interface Account {
   is_active: boolean;
   rate_limit_per_minute: number;
   last_reset_date: string;
+  prepaid_calls: number;
+  prepaid_packs: Record<string, PrepaidPackInfo>;
 }
 
 export interface RegenerateResponse {
@@ -53,6 +55,17 @@ export interface OverageToggleResponse {
 }
 
 export interface UpgradeResponse {
+  authorization_url: string;
+}
+
+export type PrepaidPack = "STARTER" | "GROWTH" | "SCALE";
+
+export interface PrepaidPackInfo {
+  usd: number;
+  calls: number;
+}
+
+export interface PrepaidPurchaseResponse {
   authorization_url: string;
 }
 
@@ -162,5 +175,12 @@ export function upgradePlan(plan_type: "PRO" | "ENTERPRISE") {
   return request<UpgradeResponse>("/v1/account/upgrade", {
     method: "POST",
     body: { plan_type },
+  });
+}
+
+export function buyPrepaidPack(pack: PrepaidPack) {
+  return request<PrepaidPurchaseResponse>("/v1/account/prepaid", {
+    method: "POST",
+    body: { pack },
   });
 }

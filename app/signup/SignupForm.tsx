@@ -85,7 +85,7 @@ export default function SignupForm() {
         Get your API key
       </h1>
       <p className="mt-3 text-sm leading-relaxed text-muted">
-        Free tier included — 1,000 calls a month, no card required. Your first
+        Free tier included — 200 calls a month, no card required. Your first
         key is issued instantly.
       </p>
 

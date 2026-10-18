@@ -719,12 +719,23 @@ export default function DocsPage() {
           <div className="mt-4">
             <FieldTable
               fields={[
-                { name: "FREE", type: "30 req/min", description: "1,000 calls/month. Snippet-length judgment text." },
+                { name: "FREE", type: "30 req/min", description: "200 calls/month. Snippet-length judgment text." },
                 { name: "PRO", type: "120 req/min", description: "20,000 calls/month. Full judgment text." },
                 { name: "ENTERPRISE", type: "600 req/min", description: "100,000 calls/month. Full judgment text, priority support." },
               ]}
             />
           </div>
+          <p className="mt-4 leading-relaxed text-muted">
+            Need more calls without a subscription?{" "}
+            <span className="text-heading">Prepaid packs</span> are one-off
+            pay-as-you-go top-ups that never expire and are consumed only after
+            your monthly quota runs out — on any plan, including Free. Buy them
+            from your{" "}
+            <Link href="/dashboard" className="text-accent hover:text-accent-hover">
+              dashboard
+            </Link>
+            .
+          </p>
         </Section>
 
         {/* Search judgments */}

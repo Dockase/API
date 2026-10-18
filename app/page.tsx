@@ -79,7 +79,7 @@ export default function Home() {
     <div className="mx-auto max-w-7xl px-6">
       {/* Hero — two-column split on desktop */}
       <section className="grid gap-12 pb-16 pt-16 sm:pt-20 lg:grid-cols-2 lg:items-center">
-        <div>
+        <div className="min-w-0">
           <p className="font-mono text-xs uppercase tracking-widest text-muted">
             Dockase Developer API &middot; v1
           </p>
@@ -118,7 +118,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="lg:pl-4">
+        <div className="min-w-0 lg:pl-4">
           <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted">
             Quickstart — first call in under a minute
           </p>
@@ -192,7 +192,7 @@ export default function Home() {
           </div>
         </div>
         <p className="mt-8 text-sm text-muted">
-          Start on the free tier — 1,000 calls a month, no card required.{" "}
+          Start on the free tier — 200 calls a month, no card required.{" "}
           <Link href="/pricing" className="text-accent hover:text-accent-hover">
             See pricing
           </Link>

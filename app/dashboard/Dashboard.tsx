@@ -6,9 +6,11 @@ import ApiKeyBanner from "@/components/ApiKeyBanner";
 import {
   type Account,
   ApiError,
+  buyPrepaidPack,
   clearToken,
   getAccount,
   getToken,
+  type PrepaidPack,
   regenerateKey,
   toggleOverage,
   upgradePlan,
@@ -16,6 +18,13 @@ import {
 
 const PLAN_ORDER = ["FREE", "PRO", "ENTERPRISE"];
 const PLAN_PRICES: Record<string, number> = { FREE: 0, PRO: 29, ENTERPRISE: 99 };
+// Fallback pack catalog; the account payload carries the authoritative
+// prepaid_packs catalog, so this is only used when the field is absent.
+const PREPAID_PACKS: Record<PrepaidPack, { usd: number; calls: number }> = {
+  STARTER: { usd: 10, calls: 2000 },
+  GROWTH: { usd: 25, calls: 6000 },
+  SCALE: { usd: 50, calls: 15000 },
+};
 // Overage rates per 1M tokens, from /pricing. The account payload has no cost
 // field, so the est. USD figure is computed client-side from overage_tokens.
 const OVERAGE_RATE_PER_1M: Record<string, number | null> = {
@@ -87,6 +96,7 @@ export default function Dashboard() {
 
   const [toggleBusy, setToggleBusy] = useState(false);
   const [upgradeBusy, setUpgradeBusy] = useState<string | null>(null);
+  const [prepaidBusy, setPrepaidBusy] = useState<PrepaidPack | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
@@ -157,6 +167,23 @@ export default function Dashboard() {
     }
   }
 
+  async function onBuyPrepaid(pack: PrepaidPack) {
+    setPrepaidBusy(pack);
+    setActionError(null);
+    try {
+      const res = await buyPrepaidPack(pack);
+      if (res.authorization_url) {
+        window.location.href = res.authorization_url;
+      } else {
+        setActionError("No checkout URL returned — please try again.");
+      }
+    } catch (err) {
+      setActionError(err instanceof ApiError ? err.message : "Purchase failed.");
+    } finally {
+      setPrepaidBusy(null);
+    }
+  }
+
   function signOut() {
     clearToken();
     window.location.href = "/";
@@ -202,6 +229,10 @@ export default function Dashboard() {
   const upgrades = (["PRO", "ENTERPRISE"] as const).filter(
     (p) => PLAN_ORDER.indexOf(p) > planIdx,
   );
+  const prepaidPacks =
+    account.prepaid_packs && Object.keys(account.prepaid_packs).length > 0
+      ? account.prepaid_packs
+      : PREPAID_PACKS;
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
@@ -335,6 +366,46 @@ export default function Dashboard() {
                 : "Overage is off — requests stop at your plan limit."}
             </p>
           </div>
+        </section>
+
+        {/* Prepaid packs */}
+        <section className="rounded-2xl border border-border bg-bg-raised p-8">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-lg font-semibold text-heading">Prepaid packs</h2>
+            <span className="rounded-full border border-gold/40 bg-gold-soft px-3 py-1 text-xs font-semibold text-gold">
+              Never expire
+            </span>
+          </div>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="text-4xl font-semibold text-heading">
+              {fmt(account.prepaid_calls ?? 0)}
+            </span>
+            <span className="text-sm text-muted">prepaid calls remaining</span>
+          </div>
+          <p className="mt-2 text-sm text-muted">
+            Pay-as-you-go top-ups on any plan, including Free. Packs are
+            consumed only after your monthly quota runs out and never expire.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {(Object.keys(PREPAID_PACKS) as PrepaidPack[]).map((name) => {
+              const pack = prepaidPacks[name] ?? PREPAID_PACKS[name];
+              return (
+                <button
+                  key={name}
+                  onClick={() => onBuyPrepaid(name)}
+                  disabled={prepaidBusy !== null}
+                  className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-hover disabled:opacity-60"
+                >
+                  {prepaidBusy === name
+                    ? "Redirecting…"
+                    : `${name.charAt(0)}${name.slice(1).toLowerCase()} — ${fmt(pack.calls)} calls · $${pack.usd}`}
+                </button>
+              );
+            })}
+          </div>
+          <p className="mt-3 text-xs text-muted">
+            You&rsquo;ll be sent to Paystack checkout to complete payment.
+          </p>
         </section>
 
         {/* Plan */}

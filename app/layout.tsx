@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable} ${jbMono.variable}`}>
-      <body className="min-h-screen font-sans antialiased flex flex-col">
+      <body className="min-h-screen overflow-x-clip font-sans antialiased flex flex-col">
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
