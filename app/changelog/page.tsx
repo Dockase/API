@@ -7,6 +7,16 @@ export const metadata: Metadata = {
 
 const entries = [
   {
+    date: "October 29, 2026",
+    tag: "Launch",
+    title: "KYB verification: CAC, TIN, SCUML, and one-call merchant assessments",
+    body: [
+      "Five new endpoints for fintech onboarding and compliance teams: POST /v1/verify/company (CAC registry check with directors and share capital), POST /v1/verify/tin, POST /v1/verify/scuml, POST /v1/verify/company-search (name to RC number), and the flagship POST /v1/kyb/assess — one call that runs every registry lane and returns a machine-readable PASS, REVIEW, or FAIL with reason codes and lane evidence.",
+      "Contract guarantees for compliance workloads: a completed check always returns 200 with a decision value (NOT_VERIFIED is a business answer, not an error), and a degraded registry returns 503 so a provider outage can never masquerade as 'company does not exist'. Keys can now carry endpoint scopes — the KYB surface requires the verify scope.",
+      "Registry integration refreshed to the provider's current API: canonical CAC and SCUML paths, the new global TIN-check endpoint, and secret-key-only authentication.",
+    ],
+  },
+  {
     date: "October 1, 2026",
     tag: "Launch",
     title: "The Dockase developer platform is live",

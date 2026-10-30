@@ -7,6 +7,7 @@ const PHRASES = [
   "Build your research engine on it.",
   "Build your drafting copilot on it.",
   "Build your compliance engine on it.",
+  "Build your merchant onboarding on it.",
 ];
 
 const TYPE_MS = 55;

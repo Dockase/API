@@ -19,6 +19,7 @@ const plans = [
       "30 requests / minute",
       "Judgment search with snippets (~300 chars)",
       "Citation graph & citation verification",
+      "KYB: CAC, TIN & SCUML checks + assessments",
       "Statutes in clean markdown",
       "Community support",
     ],
@@ -36,6 +37,7 @@ const plans = [
       "120 requests / minute",
       "Full judgment text (no snippets)",
       "Citation graph & citation verification",
+      "KYB: CAC, TIN & SCUML checks + assessments",
       "Statutes in clean markdown",
       "amicus-embed-ng-v1 embeddings",
       "Embeddings overage: $0.25 / 1M tokens",
@@ -55,6 +57,7 @@ const plans = [
       "600 requests / minute",
       "Full judgment text (no snippets)",
       "Citation graph & citation verification",
+      "KYB: CAC, TIN & SCUML checks + assessments",
       "Statutes in clean markdown",
       "amicus-embed-ng-v1 embeddings",
       "Embeddings overage: $0.20 / 1M tokens",
@@ -83,9 +86,10 @@ export default function PricingPage() {
         </h1>
         <p className="mt-4 max-w-xl text-muted">
           Every plan includes the case-law corpus, citation graph, citation
-          verification, and statutes. Embeddings are available on Pro and
-          Enterprise. Higher tiers raise the volume, the rate limit, and unlock
-          full judgment text. Billed in USD via Paystack.
+          verification, statutes, and the KYB verification surface (CAC, TIN,
+          SCUML, company search, and merchant assessments). Embeddings are
+          available on Pro and Enterprise. Higher tiers raise the volume, the
+          rate limit, and unlock full judgment text. Billed in USD via Paystack.
         </p>
       </div>
 

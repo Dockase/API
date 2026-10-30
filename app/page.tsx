@@ -6,10 +6,46 @@ import ScopeBadge from "@/components/ScopeBadge";
 import Typewriter from "@/components/Typewriter";
 
 export const metadata: Metadata = {
-  title: "Dockase API — Legal data and legal AI, as an API",
+  title: "Dockase API — Nigerian legal data, KYB verification, and legal AI, as an API",
 };
 
 const endpoints = [
+  {
+    method: "POST" as const,
+    path: "/v1/kyb/assess",
+    name: "KYB assessment",
+    scope: "Nigeria" as const,
+    blurb:
+      "One call, one decision: CAC + TIN + SCUML checked against the merchant's claims — PASS, REVIEW, or FAIL with reason codes. Built for fintech onboarding.",
+    href: "/docs#kyb-assess",
+  },
+  {
+    method: "POST" as const,
+    path: "/v1/verify/company",
+    name: "Verify a company",
+    scope: "Nigeria" as const,
+    blurb:
+      "Live CAC registry check by RC number — status, directors, share capital. Company-name search included.",
+    href: "/docs#verify-company",
+  },
+  {
+    method: "POST" as const,
+    path: "/v1/verify/tin",
+    name: "Verify a TIN",
+    scope: "Nigeria" as const,
+    blurb:
+      "Tax Identification Number verification against the tax registry — auto-routes RC/BN/IT numbers.",
+    href: "/docs#verify-tin",
+  },
+  {
+    method: "POST" as const,
+    path: "/v1/verify/scuml",
+    name: "Verify SCUML",
+    scope: "Nigeria" as const,
+    blurb:
+      "SCUML certification status for reporting entities — the AML check your compliance team asks for.",
+    href: "/docs#verify-scuml",
+  },
   {
     method: "POST" as const,
     path: "/v1/judgments/search",
@@ -90,10 +126,10 @@ export default function Home() {
             </span>
           </h1>
           <p className="mt-4 max-w-xl leading-relaxed text-muted">
-            The infrastructure layer for legal AI: judgments, statutes,
-            citation graphs, verification, and domain-trained embeddings
-            today — more datasets and specialized small models on the way.
-            Bank the data. Build on it.
+            The infrastructure layer for legal AI and compliance in Nigeria:
+            judgments, statutes, citation graphs, and embeddings for builders —
+            plus KYB verification (CAC, TIN, SCUML) and one-call merchant
+            assessments for fintech onboarding. Bank the data. Build on it.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
@@ -139,7 +175,7 @@ export default function Home() {
           Reference
         </p>
         <h2 className="mt-3 text-2xl font-semibold text-heading">
-          Six endpoints today. Specialized models next.
+          Ten endpoints today. Specialized models next.
         </h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {endpoints.map((e) => (

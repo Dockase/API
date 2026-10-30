@@ -14,6 +14,11 @@ export const metadata: Metadata = {
 
 const sidebar = [
   { id: "getting-started", label: "Getting started" },
+  { id: "kyb-assess", label: "KYB assessment" },
+  { id: "verify-company", label: "Verify a company" },
+  { id: "verify-tin", label: "Verify a TIN" },
+  { id: "verify-scuml", label: "Verify SCUML" },
+  { id: "company-search", label: "Company search" },
   { id: "search-judgments", label: "Search judgments" },
   { id: "get-judgment", label: "Get a judgment" },
   { id: "citation-graph", label: "Citation graph" },
@@ -558,6 +563,172 @@ const citationEdgeFields: Field[] = [
 
 /* ------------------------------------------------------------------ */
 
+const kybAssessTabs = [
+  {
+    label: "curl",
+    lang: "bash",
+    code: `curl https://api.dockase.com/v1/kyb/assess \\
+  -H "Authorization: Bearer dk_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "rc_number": "RC123456",
+    "company_name": "Acme Payment Services Ltd",
+    "tin": "12345678-0001",
+    "scuml_number": "SC251011526"
+  }'`,
+  },
+  {
+    label: "Python",
+    lang: "python",
+    code: `import requests
+
+resp = requests.post(
+    "https://api.dockase.com/v1/kyb/assess",
+    headers={"Authorization": "Bearer dk_live_..."},
+    json={
+        "rc_number": "RC123456",
+        "company_name": "Acme Payment Services Ltd",
+        "tin": "12345678-0001",
+        "scuml_number": "SC251011526",
+    },
+)
+resp.raise_for_status()
+result = resp.json()["data"]
+
+if result["decision"] == "PASS":
+    onboard(merchant)
+elif result["decision"] == "REVIEW":
+    route_to_compliance(merchant, result["flags"])
+else:
+    decline(merchant, result["flags"])`,
+  },
+  {
+    label: "JavaScript",
+    lang: "javascript",
+    code: `const resp = await fetch("https://api.dockase.com/v1/kyb/assess", {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer dk_live_...",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    rc_number: "RC123456",
+    company_name: "Acme Payment Services Ltd",
+    tin: "12345678-0001",
+    scuml_number: "SC251011526",
+  }),
+});
+const { data } = await resp.json();
+console.log(data.decision, data.flags);`,
+  },
+];
+
+const kybAssessResponse = `{
+  "data": {
+    "decision": "REVIEW",
+    "flags": [
+      {
+        "code": "NAME_PARTIAL_MATCH",
+        "severity": "low",
+        "detail": "Submitted name partially matches registry name 'ACME PAYMENT SERVICES LTD'."
+      },
+      {
+        "code": "TIN_NOT_VERIFIED",
+        "severity": "medium",
+        "detail": "The supplied TIN could not be verified."
+      }
+    ],
+    "evidence": {
+      "cac": {
+        "verified": true,
+        "name": "ACME PAYMENT SERVICES LTD",
+        "status": "ACTIVE",
+        "directors_count": 2,
+        "registration_date": "2019-04-01"
+      },
+      "tin": { "verified": false, "reason": "TIN/RC invalid or not found" },
+      "scuml": null
+    }
+  },
+  "meta": { "request_id": "req_7k2p9x", "plan": "PRO" }
+}`;
+
+const verifyCompanyTabs = [
+  {
+    label: "curl",
+    lang: "bash",
+    code: `curl https://api.dockase.com/v1/verify/company \\
+  -H "Authorization: Bearer dk_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{ "rc_number": "RC123456", "company_type": "RC" }'`,
+  },
+  {
+    label: "Python",
+    lang: "python",
+    code: `import requests
+
+resp = requests.post(
+    "https://api.dockase.com/v1/verify/company",
+    headers={"Authorization": "Bearer dk_live_..."},
+    json={"rc_number": "RC123456", "company_type": "RC"},
+)
+company = resp.json()["data"]
+print(company["status"], company.get("name"))`,
+  },
+];
+
+const verifyCompanyResponse = `{
+  "data": {
+    "status": "VERIFIED",
+    "verified": true,
+    "name": "ACME PAYMENT SERVICES LTD",
+    "company_status": "ACTIVE",
+    "address": "12 Marina, Lagos",
+    "directors": [
+      { "firstname": "Ada", "surname": "Lovelace" }
+    ],
+    "directors_count": 1,
+    "share_capital": "1000000",
+    "registration_date": "2019-04-01",
+    "entity_type": "LTD"
+  },
+  "meta": { "request_id": "req_3f8q2m", "plan": "FREE" }
+}`;
+
+const verifyTinResponse = `{
+  "data": {
+    "status": "VERIFIED",
+    "verified": true,
+    "taxpayer_name": "ACME PAYMENT SERVICES LTD",
+    "tax_office": "Ikoyi",
+    "email": "tax@acme.ng",
+    "tin": "12345678-0001"
+  },
+  "meta": { "request_id": "req_9h4w1t", "plan": "PRO" }
+}`;
+
+const verifyScumlResponse = `{
+  "data": {
+    "status": "VERIFIED",
+    "verified": true,
+    "number": "SC251011526",
+    "details": { "regime": "SCUML certified" }
+  },
+  "meta": { "request_id": "req_5t6r8y", "plan": "PRO" }
+}`;
+
+const companySearchResponse = `{
+  "data": {
+    "status": "FOUND",
+    "count": 2,
+    "matches": [
+      { "name": "ACME PAYMENT SERVICES LTD", "rc_number": "RC123456", "country_code": "NG" },
+      { "name": "ACME PAYMENT SYSTEMS LTD", "rc_number": "RC998877", "country_code": "NG" }
+    ]
+  },
+  "meta": { "request_id": "req_2m5n8k", "plan": "PRO" }
+}`;
+
 export default function DocsPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-14 lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
@@ -739,6 +910,229 @@ export default function DocsPage() {
         </Section>
 
         {/* Search judgments */}
+        {/* KYB assessment */}
+        <Section id="kyb-assess">
+          <EndpointHeading
+            method="POST"
+            path="/v1/kyb/assess"
+            title="KYB assessment — one call, one decision"
+            scope="Nigeria"
+          />
+          <p className="mt-4 leading-relaxed text-muted">
+            Built for fintech onboarding: the merchant submits their details,
+            and this endpoint runs every registry lane they gave you —
+            CAC always, TIN and SCUML when supplied — then applies a
+            deterministic ruleset to return a decision your system can route
+            on. Auto-pass the clean majority; humans touch only the exceptions.
+          </p>
+          <div className="mt-6">
+            <CodeTabs tabs={kybAssessTabs} />
+          </div>
+          <Sub>Request body</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "rc_number", type: "string", required: true, description: "CAC registration number, e.g. RC123456." },
+                { name: "company_name", type: "string", required: true, description: "The name the merchant claims — checked against the registry name." },
+                { name: "tin", type: "string", description: "Tax Identification Number (optional). Checked when supplied." },
+                { name: "scuml_number", type: "string", description: "SCUML registration number (optional). Checked when supplied." },
+                { name: "scuml_required", type: "boolean", description: "When true, a missing SCUML number is itself a medium-severity flag. Default false." },
+              ]}
+            />
+          </div>
+          <Sub>Decision values</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "PASS", type: "decision", description: "No medium or high flags. Auto-onboard." },
+                { name: "REVIEW", type: "decision", description: "At least one medium flag (CAC not found, TIN/SCUML unverified, SCUML missing when required). Route to human compliance." },
+                { name: "FAIL", type: "decision", description: "At least one high flag (STATUS_INACTIVE, NAME_MISMATCH). Do not onboard." },
+              ]}
+            />
+          </div>
+          <Sub>Flag codes</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "STATUS_INACTIVE", type: "high", description: "Registry status is not ACTIVE. Hard stop." },
+                { name: "NAME_MISMATCH", type: "high", description: "Submitted name does not match the registry name. Hard stop." },
+                { name: "CAC_NOT_FOUND", type: "medium", description: "RC number not found in the registry. REVIEW, not FAIL — registry data lags new incorporations." },
+                { name: "TIN_NOT_VERIFIED", type: "medium", description: "The supplied TIN could not be verified." },
+                { name: "SCUML_NOT_VERIFIED", type: "medium", description: "The supplied SCUML number could not be verified." },
+                { name: "SCUML_MISSING", type: "medium", description: "scuml_required was true and no SCUML number was supplied." },
+                { name: "NAME_PARTIAL_MATCH", type: "low", description: "Names are similar but not identical — informational." },
+                { name: "NO_DIRECTORS_FOUND", type: "low", description: "The registry returned no directors — informational." },
+                { name: "RECENT_INCORPORATION", type: "low", description: "Incorporated within roughly the last year — informational." },
+              ]}
+            />
+          </div>
+          <Sub>Response</Sub>
+          <div className="mt-4">
+            <CodeBlock code={kybAssessResponse} lang="json" title="200 OK" />
+          </div>
+          <TierNote>
+            A completed assessment is always a 200 — decisions are business
+            answers, not errors. A degraded registry is a{" "}
+            <code className="font-mono text-[13px]">503</code> instead, so a
+            provider outage can never masquerade as &ldquo;company does not
+            exist&rdquo;. Requires the{" "}
+            <code className="font-mono text-[13px]">verify</code> scope
+            (default keys include it). Consumes one call from your plan
+            regardless of how many registry lanes run.
+          </TierNote>
+        </Section>
+
+        {/* Verify company */}
+        <Section id="verify-company">
+          <EndpointHeading
+            method="POST"
+            path="/v1/verify/company"
+            title="Verify a company (CAC)"
+            scope="Nigeria"
+          />
+          <p className="mt-4 leading-relaxed text-muted">
+            Live Corporate Affairs Commission registry check by RC number:
+            registered name, status, address, directors, and share capital.
+            This is the same check that powers the CAC lane of{" "}
+            <a href="#kyb-assess" className="text-accent hover:text-accent-hover">
+              /v1/kyb/assess
+            </a>
+            .
+          </p>
+          <div className="mt-6">
+            <CodeTabs tabs={verifyCompanyTabs} />
+          </div>
+          <Sub>Request body</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "rc_number", type: "string", required: true, description: "Registration number, e.g. RC123456." },
+                { name: "company_type", type: "string", description: "RC, BN, IT, LP or LLP. Default RC." },
+              ]}
+            />
+          </div>
+          <Sub>Response</Sub>
+          <div className="mt-4">
+            <CodeBlock code={verifyCompanyResponse} lang="json" title="200 OK" />
+          </div>
+          <TierNote>
+            <code className="font-mono text-[13px]">status</code> is{" "}
+            <code className="font-mono text-[13px]">VERIFIED</code> or{" "}
+            <code className="font-mono text-[13px]">NOT_VERIFIED</code> — a
+            completed check is always a 200; registry outages are a 503.
+          </TierNote>
+        </Section>
+
+        {/* Verify TIN */}
+        <Section id="verify-tin">
+          <EndpointHeading
+            method="POST"
+            path="/v1/verify/tin"
+            title="Verify a TIN"
+            scope="Nigeria"
+          />
+          <p className="mt-4 leading-relaxed text-muted">
+            Tax Identification Number verification. RC/BN/IT numbers are
+            auto-routed through the appropriate registry channel.
+          </p>
+          <div className="mt-6">
+            <CodeBlock
+              code={`curl https://api.dockase.com/v1/verify/tin \\
+  -H "Authorization: Bearer dk_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{ "tin": "12345678-0001" }'`}
+              lang="bash"
+              title="curl"
+            />
+          </div>
+          <Sub>Request body</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "tin", type: "string", required: true, description: "Tax Identification Number, e.g. 12345678-0001." },
+              ]}
+            />
+          </div>
+          <Sub>Response</Sub>
+          <div className="mt-4">
+            <CodeBlock code={verifyTinResponse} lang="json" title="200 OK" />
+          </div>
+        </Section>
+
+        {/* Verify SCUML */}
+        <Section id="verify-scuml">
+          <EndpointHeading
+            method="POST"
+            path="/v1/verify/scuml"
+            title="Verify SCUML"
+            scope="Nigeria"
+          />
+          <p className="mt-4 leading-relaxed text-muted">
+            SCUML (Special Control Unit Against Money Laundering) certification
+            check — the AML question compliance teams ask about reporting
+            entities. The SC prefix is added automatically if you pass bare
+            digits.
+          </p>
+          <div className="mt-6">
+            <CodeBlock
+              code={`curl https://api.dockase.com/v1/verify/scuml \\
+  -H "Authorization: Bearer dk_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{ "scuml_number": "SC251011526" }'`}
+              lang="bash"
+              title="curl"
+            />
+          </div>
+          <Sub>Request body</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "scuml_number", type: "string", required: true, description: "SCUML registration number, e.g. SC251011526." },
+              ]}
+            />
+          </div>
+          <Sub>Response</Sub>
+          <div className="mt-4">
+            <CodeBlock code={verifyScumlResponse} lang="json" title="200 OK" />
+          </div>
+        </Section>
+
+        {/* Company search */}
+        <Section id="company-search">
+          <EndpointHeading
+            method="POST"
+            path="/v1/verify/company-search"
+            title="Company search"
+            scope="Nigeria"
+          />
+          <p className="mt-4 leading-relaxed text-muted">
+            Name to RC number discovery — for when the merchant gives you a
+            name but no registration number.
+          </p>
+          <div className="mt-6">
+            <CodeBlock
+              code={`curl https://api.dockase.com/v1/verify/company-search \\
+  -H "Authorization: Bearer dk_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{ "company_name": "acme payment" }'`}
+              lang="bash"
+              title="curl"
+            />
+          </div>
+          <Sub>Request body</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "company_name", type: "string", required: true, description: "Full or partial company name." },
+              ]}
+            />
+          </div>
+          <Sub>Response</Sub>
+          <div className="mt-4">
+            <CodeBlock code={companySearchResponse} lang="json" title="200 OK" />
+          </div>
+        </Section>
+
         <Section id="search-judgments">
           <EndpointHeading
             method="POST"
