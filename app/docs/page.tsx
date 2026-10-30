@@ -93,6 +93,22 @@ function TierNote({ children }: { children: React.ReactNode }) {
   );
 }
 
+function Uses({ items }: { items: string[] }) {
+  return (
+    <>
+      <Sub>What you can build with this</Sub>
+      <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+        {items.map((u) => (
+          <li key={u} className="flex gap-2.5 text-sm leading-relaxed text-muted">
+            <span className="mt-0.5 shrink-0 text-accent">&#8594;</span>
+            <span>{u}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /* Code examples                                                       */
 /* ------------------------------------------------------------------ */
@@ -1067,6 +1083,16 @@ export default function DocsPage() {
             deterministic ruleset to return a decision your system can route
             on. Auto-pass the clean majority; humans touch only the exceptions.
           </p>
+          <Uses
+            items={[
+              "Merchant onboarding for payment processors — auto-approve clean merchants, route only exceptions to compliance",
+              "Marketplace seller vetting before first payout",
+              "Lender business verification before a credit offer goes out",
+              "Agent-network registration — POS agents, logistics partners, field reps",
+              "Procurement and supplier onboarding for corporates",
+              "B2B account opening with a compliance exception queue",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={kybAssessTabs} />
           </div>

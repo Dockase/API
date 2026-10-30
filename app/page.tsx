@@ -13,6 +13,14 @@ const endpointGroups = [
   {
     label: "Compliance & KYB",
     tagline: "Registry-verified onboarding and merchant checks for fintechs.",
+    uses: [
+      "Merchant onboarding",
+      "Seller vetting",
+      "Lender underwriting",
+      "Agent networks",
+      "Procurement",
+      "B2B account opening",
+    ],
     endpoints: [
       {
         method: "POST" as const,
@@ -55,6 +63,14 @@ const endpointGroups = [
   {
     label: "Knowledge stores",
     tagline: "Your documents, embedded and queryable — S3-shaped, RAG-ready.",
+    uses: [
+      "Support chatbots",
+      "Contract Q&A",
+      "Underwriting review",
+      "Policy assistants",
+      "Data-room Q&A",
+      "Onboarding bases",
+    ],
     endpoints: [
       {
         method: "POST" as const,
@@ -88,6 +104,14 @@ const endpointGroups = [
   {
     label: "Legal data",
     tagline: "The Nigerian case-law corpus, statutes, and legal embeddings.",
+    uses: [
+      "Research copilots",
+      "Litigation risk",
+      "Hallucination guards",
+      "Precedent alerts",
+      "Legal analytics",
+      "RAG pipelines",
+    ],
     endpoints: [
       {
         method: "POST" as const,
@@ -171,10 +195,12 @@ export default function Home() {
             </span>
           </h1>
           <p className="mt-4 max-w-xl leading-relaxed text-muted">
-            The infrastructure layer for legal AI and compliance in Nigeria:
-            judgments, statutes, citation graphs, and embeddings for builders —
-            plus KYB verification (CAC, TIN, SCUML) and one-call merchant
-            assessments for fintech onboarding. Bank the data. Build on it.
+            Is this company real? What does the law actually say — and can you
+            prove it? One API for the answers you can&apos;t afford to get
+            wrong: live CAC, TIN and SCUML checks with one-call KYB decisions,
+            13,000+ Nigerian judgments with citations that actually verify,
+            and stores that turn your own documents into answers.
+            Bank the data. Build on it.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
@@ -227,6 +253,16 @@ export default function Home() {
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <h3 className="text-lg font-semibold text-heading">{group.label}</h3>
               <p className="text-sm text-muted">{group.tagline}</p>
+            </div>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {group.uses.map((u) => (
+                <span
+                  key={u}
+                  className="rounded-full border border-border bg-bg-raised/60 px-2.5 py-0.5 text-[11px] text-muted"
+                >
+                  {u}
+                </span>
+              ))}
             </div>
             <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {group.endpoints.map((e) => (
