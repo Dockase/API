@@ -7,6 +7,16 @@ export const metadata: Metadata = {
 
 const entries = [
   {
+    date: "October 30, 2026",
+    tag: "Launch",
+    title: "Knowledge stores: your documents, embedded and queryable",
+    body: [
+      "A new suite for any team with documents: POST /v1/stores creates an isolated store scoped to your API key; POST /v1/stores/{id}/documents ingests PDFs and scans (OCR, chunking, embedding — fully automatic, with per-document status to poll); POST /v1/stores/{id}/query returns cited passages with document, page, and section anchors.",
+      "Uploads are content-addressed, so re-sending a file never re-embeds it. Cross-account isolation is by design: another tenant's store ids answer 404, as if they never existed. An LLM-synthesized answer mode is on the roadmap.",
+      "The developer portal is now grouped into three suites — Compliance & KYB, Knowledge stores, and Legal data — and the API reference is organized the same way.",
+    ],
+  },
+  {
     date: "October 29, 2026",
     tag: "Launch",
     title: "KYB verification: CAC, TIN, SCUML, and one-call merchant assessments",

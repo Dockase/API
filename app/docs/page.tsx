@@ -12,13 +12,19 @@ export const metadata: Metadata = {
     "Dockase API reference — authentication, errors, rate limits, and every v1 endpoint with curl, Python, and JavaScript examples.",
 };
 
-const sidebar = [
+const sidebar: ({ id: string; label: string } | { group: string })[] = [
   { id: "getting-started", label: "Getting started" },
+  { group: "Compliance & KYB" },
   { id: "kyb-assess", label: "KYB assessment" },
   { id: "verify-company", label: "Verify a company" },
   { id: "verify-tin", label: "Verify a TIN" },
   { id: "verify-scuml", label: "Verify SCUML" },
   { id: "company-search", label: "Company search" },
+  { group: "Knowledge stores" },
+  { id: "stores-create", label: "Create a store" },
+  { id: "stores-documents", label: "Documents & ingestion" },
+  { id: "stores-query", label: "Query a store" },
+  { group: "Legal data" },
   { id: "search-judgments", label: "Search judgments" },
   { id: "get-judgment", label: "Get a judgment" },
   { id: "citation-graph", label: "Citation graph" },
@@ -729,6 +735,133 @@ const companySearchResponse = `{
   "meta": { "request_id": "req_2m5n8k", "plan": "PRO" }
 }`;
 
+const storeCreateTabs = [
+  {
+    label: "curl",
+    lang: "bash",
+    code: `curl https://api.dockase.com/v1/stores \\
+  -H "Authorization: Bearer dk_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{ "name": "M&A Data Room", "matter_type": "MA_ACQUISITION" }'`,
+  },
+  {
+    label: "Python",
+    lang: "python",
+    code: `import requests
+
+resp = requests.post(
+    "https://api.dockase.com/v1/stores",
+    headers={"Authorization": "Bearer dk_live_..."},
+    json={"name": "M&A Data Room", "matter_type": "MA_ACQUISITION"},
+)
+store = resp.json()["data"]["store"]
+print(store["id"], store["name"])`,
+  },
+];
+
+const storeCreateResponse = `{
+  "data": {
+    "store": {
+      "id": 412,
+      "name": "M&A Data Room",
+      "matter_type": "MA_ACQUISITION",
+      "document_count": 0,
+      "created_at": "2026-10-30T09:14:22+00:00"
+    }
+  },
+  "meta": { "request_id": "req_8d3k1m", "plan": "PRO" }
+}`;
+
+const storeUploadTabs = [
+  {
+    label: "curl",
+    lang: "bash",
+    code: `curl -X POST https://api.dockase.com/v1/stores/412/documents \\
+  -H "Authorization: Bearer dk_live_..." \\
+  -F "file=@share-purchase-agreement.pdf"`,
+  },
+  {
+    label: "Python",
+    lang: "python",
+    code: `import requests, time
+
+resp = requests.post(
+    "https://api.dockase.com/v1/stores/412/documents",
+    headers={"Authorization": "Bearer dk_live_..."},
+    files={"file": ("share-purchase-agreement.pdf", open("spa.pdf", "rb"))},
+)
+doc = resp.json()["data"]["document"]
+
+# Ingestion is async — poll until READY
+while True:
+    r = requests.get(
+        f"https://api.dockase.com/v1/stores/412/documents/{doc['id']}",
+        headers={"Authorization": "Bearer dk_live_..."},
+    )
+    status = r.json()["data"]["document"]["status"]
+    if status in ("READY", "FAILED"):
+        break
+    time.sleep(15)
+print(status)`,
+  },
+];
+
+const storeUploadResponse = `{
+  "data": {
+    "document": {
+      "id": 1337,
+      "name": "share-purchase-agreement.pdf",
+      "status": "UPLOADED",
+      "size_bytes": 2418332,
+      "page_count": 0,
+      "error": null,
+      "uploaded_at": "2026-10-30T09:16:41+00:00"
+    },
+    "duplicate": false
+  },
+  "meta": { "request_id": "req_2x9p4w", "plan": "PRO" }
+}`;
+
+const storeQueryTabs = [
+  {
+    label: "curl",
+    lang: "bash",
+    code: `curl https://api.dockase.com/v1/stores/412/query \\
+  -H "Authorization: Bearer dk_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{ "query": "indemnity cap and survival period", "limit": 5 }'`,
+  },
+  {
+    label: "Python",
+    lang: "python",
+    code: `import requests
+
+resp = requests.post(
+    "https://api.dockase.com/v1/stores/412/query",
+    headers={"Authorization": "Bearer dk_live_..."},
+    json={"query": "indemnity cap and survival period", "limit": 5},
+)
+for p in resp.json()["data"]["passages"]:
+    print(p["document"], p["pages"], "-", p["text"][:120])`,
+  },
+];
+
+const storeQueryResponse = `{
+  "data": {
+    "passages": [
+      {
+        "text": "The aggregate liability of the Seller under this Clause 14 shall not exceed...",
+        "document": "share-purchase-agreement.pdf",
+        "pages": "31-32",
+        "section": "Clause 14.2 — Limitation of Liability",
+        "distance": 0.183
+      }
+    ],
+    "mode": "search"
+  },
+  "meta": { "request_id": "req_6t5y8u", "plan": "PRO" }
+}`;
+
 export default function DocsPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-14 lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
@@ -739,16 +872,25 @@ export default function DocsPage() {
             API reference
           </p>
           <ul className="mt-4 space-y-1">
-            {sidebar.map((s) => (
-              <li key={s.id}>
-                <a
-                  href={`#${s.id}`}
-                  className="block rounded-lg px-3 py-1.5 text-sm text-muted transition-colors hover:bg-fill-subtle hover:text-heading"
+            {sidebar.map((s, i) =>
+              "group" in s ? (
+                <li
+                  key={`group-${i}`}
+                  className="px-3 pb-1 pt-4 font-mono text-[10px] font-semibold uppercase tracking-widest text-muted/70 first:pt-0"
                 >
-                  {s.label}
-                </a>
-              </li>
-            ))}
+                  {s.group}
+                </li>
+              ) : (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    className="block rounded-lg px-3 py-1.5 text-sm text-muted transition-colors hover:bg-fill-subtle hover:text-heading"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              )
+            )}
           </ul>
           <div className="mt-6 rounded-xl border border-border bg-bg-raised/60 p-4 text-sm">
             <p className="text-muted">Base URL</p>
@@ -1131,6 +1273,139 @@ export default function DocsPage() {
           <div className="mt-4">
             <CodeBlock code={companySearchResponse} lang="json" title="200 OK" />
           </div>
+        </Section>
+
+        {/* Create a store */}
+        <Section id="stores-create">
+          <EndpointHeading
+            method="POST"
+            path="/v1/stores"
+            title="Create a store"
+            scope="Global"
+          />
+          <p className="mt-4 leading-relaxed text-muted">
+            A store is an isolated knowledge bucket for your account: every
+            document you upload is OCR&apos;d, chunked, and embedded
+            automatically, and queries only ever return passages from inside
+            the store you name. Stores are scoped to your API key — other
+            accounts get a 404 for your store ids, as if they never existed.
+          </p>
+          <div className="mt-6">
+            <CodeTabs tabs={storeCreateTabs} />
+          </div>
+          <Sub>Request body</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "name", type: "string", required: true, description: "Display name for the store, e.g. \"M&A Data Room\"." },
+                { name: "matter_type", type: "string", description: "One of GENERAL (default), MA_ACQUISITION, MA_MERGER, FINANCING, DISPUTE, REAL_ESTATE, REGULATORY, FORENSIC, LITIGATION, KNOWLEDGE." },
+              ]}
+            />
+          </div>
+          <Sub>Response</Sub>
+          <div className="mt-4">
+            <CodeBlock code={storeCreateResponse} lang="json" title="200 OK" />
+          </div>
+          <Sub>Related calls</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "GET /v1/stores", type: "list", description: "All stores on your account, newest first." },
+                { name: "GET /v1/stores/{id}", type: "detail", description: "One store plus document counts grouped by ingestion status." },
+              ]}
+            />
+          </div>
+        </Section>
+
+        {/* Documents & ingestion */}
+        <Section id="stores-documents">
+          <EndpointHeading
+            method="POST"
+            path="/v1/stores/{id}/documents"
+            title="Upload documents"
+            scope="Global"
+          />
+          <p className="mt-4 leading-relaxed text-muted">
+            Upload a PDF (including scans) and the ingestion pipeline takes
+            over: text extraction with OCR fallback, structure-aware chunking,
+            then embedding. Uploads are content-addressed — sending the same
+            file twice is a no-op that returns the original document, so you
+            never pay twice to embed the same bytes. Max 50 MB per document.
+          </p>
+          <div className="mt-6">
+            <CodeTabs tabs={storeUploadTabs} />
+          </div>
+          <Sub>Ingestion lifecycle</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "UPLOADED", type: "status", description: "Accepted and queued. Extraction starts within minutes." },
+                { name: "EXTRACTING → EMBEDDING", type: "status", description: "Text extraction (with OCR), chunking, embedding, classification." },
+                { name: "READY", type: "status", description: "Fully embedded — the document is queryable." },
+                { name: "FAILED", type: "status", description: "Ingestion failed; the document record carries an error message." },
+              ]}
+            />
+          </div>
+          <Sub>Response (202 Accepted)</Sub>
+          <div className="mt-4">
+            <CodeBlock code={storeUploadResponse} lang="json" title="202 Accepted" />
+          </div>
+          <Sub>Related calls</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "GET /v1/stores/{id}/documents", type: "list", description: "Every document in the store with its ingestion status." },
+                { name: "GET /v1/stores/{id}/documents/{doc_id}", type: "detail", description: "One document's status — poll this until READY." },
+                { name: "DELETE /v1/stores/{id}/documents/{doc_id}", type: "delete", description: "Removes the document and all its embedded passages." },
+              ]}
+            />
+          </div>
+          <TierNote>
+            Ingestion is asynchronous: upload returns 202 immediately and the
+            pipeline catches up in the background (a stalled document is
+            re-queued automatically by the ingestion watchdog). Documents count
+            against your storage footprint; query calls count against your
+            plan&apos;s call allowance like any other endpoint.
+          </TierNote>
+        </Section>
+
+        {/* Query a store */}
+        <Section id="stores-query">
+          <EndpointHeading
+            method="POST"
+            path="/v1/stores/{id}/query"
+            title="Query a store"
+            scope="Global"
+          />
+          <p className="mt-4 leading-relaxed text-muted">
+            Semantic search scoped to one store. Passages come back with
+            citation anchors — document name, page range, and section label —
+            so your app can link users straight to the source. Only documents
+            in the READY state are searched.
+          </p>
+          <div className="mt-6">
+            <CodeTabs tabs={storeQueryTabs} />
+          </div>
+          <Sub>Request body</Sub>
+          <div className="mt-3">
+            <FieldTable
+              fields={[
+                { name: "query", type: "string", required: true, description: "Natural-language question or phrase (2–2000 chars)." },
+                { name: "limit", type: "integer", description: "Passages to return, 1–25. Default 8." },
+              ]}
+            />
+          </div>
+          <Sub>Response</Sub>
+          <div className="mt-4">
+            <CodeBlock code={storeQueryResponse} lang="json" title="200 OK" />
+          </div>
+          <TierNote>
+            <code className="font-mono text-[13px]">mode: &ldquo;search&rdquo;</code>{" "}
+            returns raw cited passages — deterministic and cheap. An{" "}
+            <code className="font-mono text-[13px]">answer</code> mode
+            (LLM-synthesized answer over the same passages, separately metered)
+            is on the roadmap; talk to us if you need it early.
+          </TierNote>
         </Section>
 
         <Section id="search-judgments">

@@ -9,96 +9,141 @@ export const metadata: Metadata = {
   title: "Dockase API — Nigerian legal data, KYB verification, and legal AI, as an API",
 };
 
-const endpoints = [
+const endpointGroups = [
   {
-    method: "POST" as const,
-    path: "/v1/kyb/assess",
-    name: "KYB assessment",
-    scope: "Nigeria" as const,
-    blurb:
-      "One call, one decision: CAC + TIN + SCUML checked against the merchant's claims — PASS, REVIEW, or FAIL with reason codes. Built for fintech onboarding.",
-    href: "/docs#kyb-assess",
+    label: "Compliance & KYB",
+    tagline: "Registry-verified onboarding and merchant checks for fintechs.",
+    endpoints: [
+      {
+        method: "POST" as const,
+        path: "/v1/kyb/assess",
+        name: "KYB assessment",
+        scope: "Nigeria" as const,
+        blurb:
+          "One call, one decision: CAC + TIN + SCUML checked against the merchant's claims — PASS, REVIEW, or FAIL with reason codes. Built for fintech onboarding.",
+        href: "/docs#kyb-assess",
+      },
+      {
+        method: "POST" as const,
+        path: "/v1/verify/company",
+        name: "Verify a company",
+        scope: "Nigeria" as const,
+        blurb:
+          "Live CAC registry check by RC number — status, directors, share capital. Company-name search included.",
+        href: "/docs#verify-company",
+      },
+      {
+        method: "POST" as const,
+        path: "/v1/verify/tin",
+        name: "Verify a TIN",
+        scope: "Nigeria" as const,
+        blurb:
+          "Tax Identification Number verification against the tax registry — auto-routes RC/BN/IT numbers.",
+        href: "/docs#verify-tin",
+      },
+      {
+        method: "POST" as const,
+        path: "/v1/verify/scuml",
+        name: "Verify SCUML",
+        scope: "Nigeria" as const,
+        blurb:
+          "SCUML certification status for reporting entities — the AML check your compliance team asks for.",
+        href: "/docs#verify-scuml",
+      },
+    ],
   },
   {
-    method: "POST" as const,
-    path: "/v1/verify/company",
-    name: "Verify a company",
-    scope: "Nigeria" as const,
-    blurb:
-      "Live CAC registry check by RC number — status, directors, share capital. Company-name search included.",
-    href: "/docs#verify-company",
+    label: "Knowledge stores",
+    tagline: "Your documents, embedded and queryable — S3-shaped, RAG-ready.",
+    endpoints: [
+      {
+        method: "POST" as const,
+        path: "/v1/stores",
+        name: "Create a store",
+        scope: "Global" as const,
+        blurb:
+          "An isolated knowledge bucket for your account. Everything you put in is OCR'd, chunked, and embedded automatically.",
+        href: "/docs#stores-create",
+      },
+      {
+        method: "POST" as const,
+        path: "/v1/stores/{id}/documents",
+        name: "Upload documents",
+        scope: "Global" as const,
+        blurb:
+          "PDFs and scans in, embedded passages out — with per-document ingestion status you can poll.",
+        href: "/docs#stores-documents",
+      },
+      {
+        method: "POST" as const,
+        path: "/v1/stores/{id}/query",
+        name: "Query a store",
+        scope: "Global" as const,
+        blurb:
+          "Semantic search scoped to one store: cited passages with document, page, and section anchors.",
+        href: "/docs#stores-query",
+      },
+    ],
   },
   {
-    method: "POST" as const,
-    path: "/v1/verify/tin",
-    name: "Verify a TIN",
-    scope: "Nigeria" as const,
-    blurb:
-      "Tax Identification Number verification against the tax registry — auto-routes RC/BN/IT numbers.",
-    href: "/docs#verify-tin",
-  },
-  {
-    method: "POST" as const,
-    path: "/v1/verify/scuml",
-    name: "Verify SCUML",
-    scope: "Nigeria" as const,
-    blurb:
-      "SCUML certification status for reporting entities — the AML check your compliance team asks for.",
-    href: "/docs#verify-scuml",
-  },
-  {
-    method: "POST" as const,
-    path: "/v1/judgments/search",
-    name: "Search judgments",
-    scope: "Nigeria" as const,
-    blurb:
-      "Semantic search over 13,000+ Nigerian judgments, with court-level and year filters.",
-    href: "/docs#search-judgments",
-  },
-  {
-    method: "GET" as const,
-    path: "/v1/judgments/{id}",
-    name: "Get a judgment",
-    scope: "Nigeria" as const,
-    blurb:
-      "Citation, court, ratio, summary — Pro plans and above get the full judgment text.",
-    href: "/docs#get-judgment",
-  },
-  {
-    method: "GET" as const,
-    path: "/v1/judgments/{id}/citations",
-    name: "Citation graph",
-    scope: "Nigeria" as const,
-    blurb:
-      "Everything a case cites and everything that cites it — followed, considered, distinguished, overruled.",
-    href: "/docs#citation-graph",
-  },
-  {
-    method: "POST" as const,
-    path: "/v1/citations/verify",
-    name: "Verify a citation",
-    scope: "Nigeria" as const,
-    blurb:
-      "Check a citation or case name against the real record. Built to catch hallucinated authorities.",
-    href: "/docs#verify-citation",
-  },
-  {
-    method: "GET" as const,
-    path: "/v1/statutes",
-    name: "Statutes",
-    scope: "Nigeria" as const,
-    blurb:
-      "Nigerian statutes in clean markdown, filterable by category and jurisdiction.",
-    href: "/docs#statutes",
-  },
-  {
-    method: "POST" as const,
-    path: "/v1/embeddings",
-    name: "Legal embeddings",
-    scope: "Global" as const,
-    blurb:
-      "amicus-embed-ng-v1: a legal-domain embedding model anyone can build on, from anywhere. OpenAI-compatible.",
-    href: "/docs#embeddings",
+    label: "Legal data",
+    tagline: "The Nigerian case-law corpus, statutes, and legal embeddings.",
+    endpoints: [
+      {
+        method: "POST" as const,
+        path: "/v1/judgments/search",
+        name: "Search judgments",
+        scope: "Nigeria" as const,
+        blurb:
+          "Semantic search over 13,000+ Nigerian judgments, with court-level and year filters.",
+        href: "/docs#search-judgments",
+      },
+      {
+        method: "GET" as const,
+        path: "/v1/judgments/{id}",
+        name: "Get a judgment",
+        scope: "Nigeria" as const,
+        blurb:
+          "Citation, court, ratio, summary — Pro plans and above get the full judgment text.",
+        href: "/docs#get-judgment",
+      },
+      {
+        method: "GET" as const,
+        path: "/v1/judgments/{id}/citations",
+        name: "Citation graph",
+        scope: "Nigeria" as const,
+        blurb:
+          "Everything a case cites and everything that cites it — followed, considered, distinguished, overruled.",
+        href: "/docs#citation-graph",
+      },
+      {
+        method: "POST" as const,
+        path: "/v1/citations/verify",
+        name: "Verify a citation",
+        scope: "Nigeria" as const,
+        blurb:
+          "Check a citation or case name against the real record. Built to catch hallucinated authorities.",
+        href: "/docs#verify-citation",
+      },
+      {
+        method: "GET" as const,
+        path: "/v1/statutes",
+        name: "Statutes",
+        scope: "Nigeria" as const,
+        blurb:
+          "Nigerian statutes in clean markdown, filterable by category and jurisdiction.",
+        href: "/docs#statutes",
+      },
+      {
+        method: "POST" as const,
+        path: "/v1/embeddings",
+        name: "Legal embeddings",
+        scope: "Global" as const,
+        blurb:
+          "amicus-embed-ng-v1: a legal-domain embedding model anyone can build on, from anywhere. OpenAI-compatible.",
+        href: "/docs#embeddings",
+      },
+    ],
   },
 ];
 
@@ -169,63 +214,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Endpoint cards */}
+      {/* Endpoint cards — grouped by suite */}
       <section className="border-t border-border py-14">
         <p className="font-mono text-xs uppercase tracking-widest text-muted">
           Reference
         </p>
         <h2 className="mt-3 text-2xl font-semibold text-heading">
-          Ten endpoints today. Specialized models next.
+          Three suites, one API key. Specialized models next.
         </h2>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {endpoints.map((e) => (
-            <Link
-              key={e.path + e.name}
-              href={e.href}
-              className="group rounded-2xl border border-border bg-bg-raised p-6 transition-colors hover:border-accent/50"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <MethodBadge method={e.method} />
-                <ScopeBadge scope={e.scope} />
-              </div>
-              <code className="mt-3 block truncate font-mono text-xs text-muted">
-                {e.path}
-              </code>
-              <h3 className="mt-3 text-lg font-semibold text-heading group-hover:text-accent">
-                {e.name}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                {e.blurb}
-              </p>
-            </Link>
-          ))}
-
-          {/* Coming soon teaser */}
-          <div className="rounded-2xl border border-dashed border-border-strong p-6">
-            <div className="flex items-center justify-between gap-2">
-              <span className="inline-flex items-center rounded-md border border-border px-2 py-0.5 font-mono text-[11px] font-semibold tracking-wide text-muted">
-                SOON
-              </span>
-              <ScopeBadge scope="Coming soon" />
+        {endpointGroups.map((group) => (
+          <div key={group.label} className="mt-10">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h3 className="text-lg font-semibold text-heading">{group.label}</h3>
+              <p className="text-sm text-muted">{group.tagline}</p>
             </div>
-            <code className="mt-3 block truncate font-mono text-xs text-muted">
-              /v1/models/*
-            </code>
-            <h3 className="mt-3 text-lg font-semibold text-heading">
-              Specialized contract models
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              Small, purpose-trained models for contract review, clause
-              extraction, and drafting.{" "}
-              <a
-                href="mailto:support@dockase.com"
-                className="text-accent hover:text-accent-hover"
-              >
-                Talk to us about early access
-              </a>
-              .
-            </p>
+            <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {group.endpoints.map((e) => (
+                <Link
+                  key={e.path + e.name}
+                  href={e.href}
+                  className="group rounded-2xl border border-border bg-bg-raised p-6 transition-colors hover:border-accent/50"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <MethodBadge method={e.method} />
+                    <ScopeBadge scope={e.scope} />
+                  </div>
+                  <code className="mt-3 block truncate font-mono text-xs text-muted">
+                    {e.path}
+                  </code>
+                  <h3 className="mt-3 text-lg font-semibold text-heading group-hover:text-accent">
+                    {e.name}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {e.blurb}
+                  </p>
+                </Link>
+              ))}
+            </div>
           </div>
+        ))}
+
+        {/* Coming soon teaser */}
+        <div className="mt-10 rounded-2xl border border-dashed border-border-strong p-6 lg:w-1/3">
+          <div className="flex items-center justify-between gap-2">
+            <span className="inline-flex items-center rounded-md border border-border px-2 py-0.5 font-mono text-[11px] font-semibold tracking-wide text-muted">
+              SOON
+            </span>
+            <ScopeBadge scope="Coming soon" />
+          </div>
+          <code className="mt-3 block truncate font-mono text-xs text-muted">
+            /v1/models/*
+          </code>
+          <h3 className="mt-3 text-lg font-semibold text-heading">
+            Specialized contract models
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Small, purpose-trained models for contract review, clause
+            extraction, and drafting.{" "}
+            <a
+              href="mailto:support@dockase.com"
+              className="text-accent hover:text-accent-hover"
+            >
+              Talk to us about early access
+            </a>
+            .
+          </p>
         </div>
         <p className="mt-8 text-sm text-muted">
           Start on the free tier — 200 calls a month, no card required.{" "}
