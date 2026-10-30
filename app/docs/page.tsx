@@ -1167,6 +1167,16 @@ export default function DocsPage() {
             </a>
             .
           </p>
+          <Uses
+            items={[
+              "Checkout-time verification in B2B flows — confirm the business exists before you invoice it",
+              "Vendor master-data validation in ERP and accounting systems",
+              "Credit application pre-screening for lenders",
+              "Partnership, reseller, and distributor diligence",
+              "Invoice-fraud detection — is the company on this invoice real and active?",
+              "CRM enrichment — directors, share capital, and registration date on every account",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={verifyCompanyTabs} />
           </div>
@@ -1203,6 +1213,16 @@ export default function DocsPage() {
             Tax Identification Number verification. RC/BN/IT numbers are
             auto-routed through the appropriate registry channel.
           </p>
+          <Uses
+            items={[
+              "Tax-compliant invoicing — validate a counterparty's TIN before issuing",
+              "Withholding-tax workflows for accounting and payroll platforms",
+              "Lender KYC for business loan applications",
+              "Marketplace seller tax onboarding",
+              "Vendor payment compliance before disbursement",
+              "Government and enterprise supplier registration portals",
+            ]}
+          />
           <div className="mt-6">
             <CodeBlock
               code={`curl https://api.dockase.com/v1/verify/tin \\
