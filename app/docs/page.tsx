@@ -1261,6 +1261,16 @@ export default function DocsPage() {
             entities. The SC prefix is added automatically if you pass bare
             digits.
           </p>
+          <Uses
+            items={[
+              "AML onboarding for designated non-financial businesses — real estate, car dealers, jewelers",
+              "Client-intake compliance for law and accounting firms",
+              "Gaming and betting operator verification",
+              "Hospitality and travel-sector vendor checks",
+              "Enhanced due diligence on high-value B2B contracts",
+              "Regulator-ready audit trails — every check carries a request ID",
+            ]}
+          />
           <div className="mt-6">
             <CodeBlock
               code={`curl https://api.dockase.com/v1/verify/scuml \\
@@ -1297,6 +1307,16 @@ export default function DocsPage() {
             Name to RC number discovery — for when the merchant gives you a
             name but no registration number.
           </p>
+          <Uses
+            items={[
+              "Onboarding autocomplete — the merchant types a name, you fill in the RC number",
+              "Duplicate-account detection across your user base",
+              "CRM data cleanup and migration dedupe",
+              "Counterparty discovery before contract negotiation",
+              "Bulk backfill of missing RC numbers across a loan book",
+              "Entity resolution before litigation or collections",
+            ]}
+          />
           <div className="mt-6">
             <CodeBlock
               code={`curl https://api.dockase.com/v1/verify/company-search \\
@@ -1336,6 +1356,16 @@ export default function DocsPage() {
             the store you name. Stores are scoped to your API key — other
             accounts get a 404 for your store ids, as if they never existed.
           </p>
+          <Uses
+            items={[
+              "A knowledge base for every client, product, or project — isolated per store",
+              "Deal data rooms your whole team can query instead of dig through",
+              "Compliance policy libraries that answer staff questions",
+              "Case-file stores for litigation teams — every authority a passage away",
+              "Research archives that compound instead of expiring",
+              "The memory layer behind your own AI product — we handle OCR, chunking, and embeddings",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={storeCreateTabs} />
           </div>
@@ -1378,6 +1408,16 @@ export default function DocsPage() {
             file twice is a no-op that returns the original document, so you
             never pay twice to embed the same bytes. Max 50 MB per document.
           </p>
+          <Uses
+            items={[
+              "Bulk intake for due-diligence data rooms — drop hundreds of PDFs, query minutes later",
+              "Scanned contract backfiles turned searchable (OCR built in)",
+              "Loan-file ingestion for underwriting teams",
+              "Regulatory document libraries kept current by re-upload",
+              "Expert-report and evidence bundles for dispute teams",
+              "Onboarding packs new hires can query on day one",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={storeUploadTabs} />
           </div>
@@ -1429,6 +1469,16 @@ export default function DocsPage() {
             so your app can link users straight to the source. Only documents
             in the READY state are searched.
           </p>
+          <Uses
+            items={[
+              "Customer-support chatbots that answer from your actual policy documents",
+              "Contract Q&A copilots — 'what does our MSA say about liability caps?'",
+              "Underwriting review — query loan files at portfolio scale",
+              "Compliance assistants that cite the policy page, not vibes",
+              "Data-room Q&A during transactions — answers with page anchors",
+              "Internal helpdesks that deflect tickets with sourced answers",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={storeQueryTabs} />
           </div>
@@ -1466,6 +1516,16 @@ export default function DocsPage() {
             natural-language description of the legal issue; get back ranked
             authorities with citations, ratios, and relevance scores.
           </p>
+          <Uses
+            items={[
+              "Legal research copilots grounded in real Nigerian authority",
+              "Litigation-risk checks — is this counterparty or principle litigated?",
+              "Case-law chatbots for firms and law schools",
+              "Brief-writing assistants that find supporting authority mid-draft",
+              "Compliance monitoring for regulatory precedent shifts",
+              "Judicial analytics — what courts actually do with an issue",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={searchTabs} />
           </div>
@@ -1504,6 +1564,16 @@ export default function DocsPage() {
             Fetch a single judgment by ID. Same shape as a search result, with
             the same plan-based text tiering.
           </p>
+          <Uses
+            items={[
+              "Full-text reading views in research and knowledge products",
+              "Citation-context display — show the actual holding, not a summary",
+              "Document assembly that quotes the court's own words",
+              "Court and judge opinion archives",
+              "Summarization and study pipelines over verified text",
+              "Deep links from your case notes to the authoritative source",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={getJudgmentTabs} />
           </div>
@@ -1541,6 +1611,16 @@ export default function DocsPage() {
             considered, distinguished, or overruled — with a confidence score
             and the passage it was extracted from.
           </p>
+          <Uses
+            items={[
+              "'Is this case still good law?' checks inside drafting tools",
+              "Precedent monitoring — alert when a key authority gets questioned or overruled",
+              "Judicial analytics — most-cited and most-doubted authorities in a field",
+              "Brief-strength scoring before filing",
+              "Law-school and bar-prep study tools built on real treatment data",
+              "Citation-network research for appellate strategy",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={citationsTabs} />
           </div>
@@ -1583,6 +1663,16 @@ export default function DocsPage() {
             drafts through this endpoint before it reaches a brief, an opinion,
             or a filing.
           </p>
+          <Uses
+            items={[
+              "Hallucination guardrails for any LLM drafting pipeline",
+              "Pre-filing checks — no invented authority survives to a judge",
+              "Citation cleanup in document-automation tools",
+              "Quality gates for legal-content publishing",
+              "Supervision tooling — partners review juniors' citations in seconds",
+              "The verification step every legal AI product is missing",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={verifyTabs} />
           </div>
@@ -1644,6 +1734,16 @@ export default function DocsPage() {
             </code>{" "}
             (federal or a state).
           </p>
+          <Uses
+            items={[
+              "Regulatory rulebooks for compliance teams — always the current text",
+              "Statute-aware Q&A bots for staff and clients",
+              "Contract clause validation against governing law",
+              "Regulatory change tracking for regulated industries",
+              "Civic-tech and open-law platforms",
+              "Legislative research for policy teams",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={statutesTabs} />
           </div>
@@ -1673,6 +1773,16 @@ export default function DocsPage() {
             The full statute, formatted as clean markdown — headings, sections,
             and subsections preserved. Ready to render or index.
           </p>
+          <Uses
+            items={[
+              "In-product statute viewers with clean typography",
+              "Training and onboarding content built on exact statutory text",
+              "Diff tooling between statute versions",
+              "Grounding documents for your own RAG pipelines",
+              "Compliance checklists generated from the current law",
+              "Citation-accurate quoting in client advisories",
+            ]}
+          />
           <div className="mt-6">
             <CodeBlock
               code={`curl https://api.dockase.com/v1/statutes/st_electoral_act_2022 \\
@@ -1705,6 +1815,16 @@ export default function DocsPage() {
             bases, in any jurisdiction. The request shape is
             OpenAI-compatible.
           </p>
+          <Uses
+            items={[
+              "Semantic search over your own document corpus",
+              "Duplicate and near-duplicate contract detection",
+              "Similar-case and similar-clause recommendation engines",
+              "RAG pipelines with a legal-domain model instead of a generic one",
+              "Clustering and classification of legal text at scale",
+              "Relevance scoring for document review queues",
+            ]}
+          />
           <div className="mt-6">
             <CodeTabs tabs={embeddingsTabs} />
           </div>
